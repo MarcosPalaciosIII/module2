@@ -1,0 +1,107 @@
+db.employees.insertOne({
+ name: "Martin",
+ age: 43,
+ phone: {
+  personal: "555-123-123",
+  work: "555-456-456",
+  ext: "5623"
+ },
+ privileges: "user",
+ favorites: { food: "pizza", artist: "Picasso" },
+ finished: [ 18, 12 ],
+ badges: [ "black", "blue" ],
+ points: [
+    { points: 78, bonus: 8 },
+    { points: 57, bonus: 7 }
+ ]
+})
+
+db.employees.find( {}, { name: 1 }).pretty()
+db.employees.find( { name: 'Steve' })
+db.employees.find( { age: { $gt: 30 } })
+db.employees.find( { 'phone.ext': '2143' })
+
+db.employees.updateOne(
+  { "name": "Martin"},
+   { $set: {
+   "phone.ext": 7777,
+   age: 44
+   }
+  }
+)
+
+db.camels.updateOne(
+ { _id: ObjectId("5a01dce3f3a3358c4bd2709e") },
+  {
+  $set: {
+   description: "I'm a horse",
+   relationshipStatus: "Single"
+  }
+ }
+)
+
+db.camels.updateMany (
+{ humps: 2 },
+{
+$set: {
+relationshipStatus: "Trolled"
+}
+}
+)
+
+db.employees.updateMany(
+  { "age": { $gte: 30 }},
+	{ $set: { "favorites.writer": "Cervantes" }}
+)
+
+db.employees.updateOne(
+{ name: "Martin"},
+{
+$inc: {
+age: 1
+}
+}
+)
+
+db.employees.updateOne(
+  { name: "Martin"},
+  {
+    $push: {
+      badges: "gold"
+    }
+  }
+)
+
+db.employees.find( { age: { $gt: 30 } })
+db.employees.find( { age: { $lte: 30 } })
+db.employees.find( { 'favorites.food': 'pizza' } )
+db.employees.updateOne (
+  { name: "Willy" },
+  {
+    $set: {
+    "phone.personal": "93-123-45-67"
+    }
+  }
+)
+
+db.employees.updateOne (
+  { name: "Bob" },
+  {
+    $set: {
+    privilege: "user"
+    }
+  }
+)
+
+db.employees.find ( {"favorites.artist": "Picasso"} )
+
+db.employees.deleteOne (
+  {name: "John"}
+)
+
+db.employees.updateMany (
+  {"points.bonus": {$lt: 10} },
+  {
+  $inc: {"points.$.bonus": 15}
+  }
+)
