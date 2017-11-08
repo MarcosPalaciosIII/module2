@@ -105,3 +105,123 @@ db.employees.updateMany (
   $inc: {"points.$.bonus": 15}
   }
 )
+
+//----------------------------------------------
+
+db.restaurants.find(
+{ CRITERIA }
+{ name: 1, cuisine: 1, _id: 0}
+)
+
+db.restaurants.find(
+{ cuisine: "Hamburgers" },
+{ name: 1, borough: 1, _id: 0}
+).pretty()
+
+db.restaurants.find(
+{ "address.zipcode": "11225" },
+{ name: 1, cuisine: 1, _id: 0}
+).pretty()
+
+db.restaurants.find(
+{
+"address.zipcode": "11225",
+cuisine: "Hamburgers"
+},
+{ name: 1, _id: 0}
+).pretty()
+
+
+db.restaurants.find(
+{
+$or: [
+  {cuisine: "Pizza"},
+  {cuisine: "Jewish/Kosher"},
+  {"address.zipcode": "10075"}
+  ]
+},
+{ name: 1, borough: 1, _id: 0}
+).pretty().sort({ name: 1 }).limit(25)
+
+db.restaurants.find(
+  { cuisine: "Pasta", borough: "Bronx"}
+  { grades: 0, _id: 0, cuisine: 0, borough: 0}
+).sort(
+  { "address.street": -1 }
+).limit (
+  5
+).pretty()
+
+db.restaurants.find(
+{
+$or: [
+  {cuisine: "Pizza"},
+  {cuisine: "Jewish/Kosher"},
+  {"address.zipcode": "10075"}
+  ]
+},
+{ name: 1, borough: 1, _id: 0}
+).pretty().sort({ name: 1 }).limit(25)
+
+db.restaurants.find(
+  { borough: "Bronx",
+  $or: [
+  {cuisine: "Italian"},
+  {cuisine: "Burger"},
+    ]
+  },
+  { grades: 0, _id: 0, cuisine: 0, borough: 0}
+).sort(
+  { "address.street": -1 }
+).limit (
+  5
+).pretty()
+
+db.restaurants.find(
+  { borough: "Bronx",
+  cuisine: {$not: {$eq: "Italian"}
+    }
+  },
+  { grades: 0, _id: 0, cuisine: 0, borough: 0}
+).sort(
+  { "address.street": -1 }
+).limit (
+  5
+).pretty()
+
+---------------------------------------------------
+
+
+db.restaurants.find( {restaurant_id: "30112340"} ).pretty()
+
+db.restaurants.find( {name: "May May Kitchen"} ).pretty()
+
+db.restaurants.find( {cuisine: "Tapas"} ).pretty()
+
+db.restaurants.find( {"address.zipcode": "11208"} ).pretty()
+
+db.restaurants.find( {"grades.score": {$gte: 70}} ).pretty()
+
+db.restaurants.find( {borough: "Brooklyn", "grades.score": {$gt: 80}} ).pretty()
+
+db.restaurants.find(
+{
+$or: [
+  {cuisine: "Chilean"},
+  {cuisine: "Zcech"}
+  ]}).pretty()
+
+db.restaurants.find( {"grades.1.grade": "A"} ).pretty()
+
+db.restaurants.find(
+{
+$or: [
+  {"grades.grade": "A"},
+  {"grades.grade": "B"}
+  ]}).pretty()
+
+db.restaurants.find( {"grades.date": ISODate("2014-09-16")} ).pretty()
+
+db.restaurants.find( {cuisine: "Tapas"} ).sort({name: 1}).pretty()
+
+db.restaurants.find( {"grades.date": {$gte: ISODate("2015-01-01")} } ).pretty()
