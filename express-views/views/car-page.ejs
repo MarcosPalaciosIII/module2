@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title> Express Views </title>
+
+    <link rel="stylesheet" href="/css/style.css" />
+
+  </head>
+
+  <body>
+    <header>
+      <h1> Express Views </h1>
+    </header>
+
+    <h2> Car Page </h2>
+
+    <ul>
+      <%= carList.forEach((oneCar) => { %>
+        <li><%= oneCar %></li>
+      <%= }) %>
+    </ul>
+
+    <script src="/js/script.js"></script>
+
+  </body>
+
+</html>
