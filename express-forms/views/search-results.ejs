@@ -1,0 +1,35 @@
+<h2> Your Results </h2>
+
+<p>
+  You searched for <b><%= theSearchTerm %></b>.
+</p>
+
+<form method="get" action="/process-search" >
+  <label for="search-input"> Search Term </label>
+  <input id="search-input" type="search" placeholder="e.g. hot dog" name="myTerm" value="<%= theSearchTerm %>" />
+  <br />
+
+  <input id="check-input" type="checkbox" name="hotDogCheck" />
+  <label for="check-input"> Interested in hot dogs? </label>
+  <br />
+
+  <button> Search </button>
+</form>
+
+
+<h3> Your Results </h3>
+
+<ol>
+  <li>
+    SPONSORED
+    <a href="https://www.pepto-bismol.com/en-us"> Pepto Bismol </a>
+  </li>
+  <li>
+    SPONSORED
+    <a href="http://lucali.com/"> Lucali </a>
+  </li>
+  <li>
+    SPONSORED
+    <a href="http://pulsestartnow.com/"> Pulse Start</a>
+  </li>
+</ol>
