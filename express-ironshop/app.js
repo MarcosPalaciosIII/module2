@@ -28,8 +28,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
+// ROUTES ---------------------------------------
 const index = require('./routes/index');
 app.use('/', index);
+
+// connect the product router file
+const myProductRouter = require('./routes/product-router');
+
+app.use(myProductRouter);
+// ----------------------------------------------
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

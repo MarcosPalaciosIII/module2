@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 // connect Mongoose to our app's local database
-mongoose.connect("mongodb://localhost/adopt-a-cat", {useMongoClient: true})
+mongoose.connect("mongodb://localhost/ironshop", {useMongoClient: true})
   .then(() => {
     console.log("Mongoose is connected!");
   })
