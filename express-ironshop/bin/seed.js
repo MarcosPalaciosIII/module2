@@ -53,7 +53,7 @@ const productInfo = [
 
 // db.produts.insertMany(productInfo)
 ProductModel.create(productInfo)
-  .then((productRe) => {
+  .then((productResult) => {
     console.log("Inserted ${productResults.length} products");
   })
   .catch((err) => {
