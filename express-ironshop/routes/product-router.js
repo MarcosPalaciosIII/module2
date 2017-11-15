@@ -4,6 +4,60 @@ const ProductModel = require("../models/product-model");
 
 const router = express.Router();
 
+router.get("/search", (req, res, next) => {
+  // create a regular expression from the search term
+  // (this allows us to do partial matches)
+  const searchRegEx = new RegExp(req.query.userSearch, "i");
+
+  ProductModel
+  .find({ name: searchRegEx })
+  .limit(20)
+  .exec()
+  .then((searchResults) => {
+    res.locals.listOfResults = searchResults;
+    res.locals.searchTerm = req.query.userSearch;
+
+    res.render("product-views/search-page");
+  })
+  .catch((err) => {
+    next(err);
+  });
+
+}); //GET /products/search
+
+
+router.get("/products/luxury", (req, res, next) => {
+    ProductModel
+    .find()
+    .limit(20)
+    .sort({ price: -1 })
+    .exec()
+    .then((expensiveProducts) => {
+      res.locals.listOfExpensiveProducts = expensiveProducts;
+      res.render("product-views/luxury-page");
+    })
+    .catch((err) => {
+      next(err);
+    });
+}); // GET / products/luxury
+
+
+router.get("/products/value", (req, res, next) => {
+  ProductModel
+  .find()
+  .limit(20)
+  .sort({ price: 1 })
+  .exec()
+  .then((cheapProducts) => {
+    res.locals.listOfCheapProducts = cheapProducts;
+    res.render("product-views/best-value-page");
+  })
+  .catch((err) => {
+    next(err);
+  });
+}); // GET /products/value
+
+
 router.get("/products", (req, res, next) => {
   ProductModel
     .find()
@@ -95,6 +149,21 @@ router.get("/products/:prodId", (req, res, next) => {
     next(err);
   });
 
+});
+
+// use this or the GET version of deleting (not both)
+router.post("/products/:prodId/delete", (req, res, next) => {
+    ProductModel.findByIdAndRemove(req.params.prodId)
+      .then((productFromDb) => {
+          // redirect to the list of products page
+          // (you can't see the details of a product that isn't in the DB)
+          res.redirect("/products");
+            // you CAN'T redirect to an EJS file
+            // you can ONLY redirect to a URL
+      })
+      .catch((err) => {
+          next(err);
+      });
 });
 
 

@@ -36,6 +36,10 @@ app.use('/', index);
 const myProductRouter = require('./routes/product-router');
 
 app.use(myProductRouter);
+
+const myReviewRouter = require("./routes/review-router");
+
+app.use(myReviewRouter);
 // ----------------------------------------------
 
 
