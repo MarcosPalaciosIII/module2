@@ -1,12 +1,16 @@
 <h2> Log In </h2>
 
-<form id="form" method="post" action="process-signup">
+<% if (typeof errorMessage !== "undefined") { %>
+  <p class="error-message"> <%= errorMessage %> </p>
+<% } %>
+
+<form id="form" method="post" action="/process-login">
   <label for="email-input"> Email </label>
   <input id="email-input" type="email" placeholder="e.g. tyrion@casterly.rock" name="LoginEmail" />
   <br />
 
   <label for="password-input"> Password </label>
-  <input id="passwrod-input" type="password" name="LoginPassword" value="">
+  <input id="passwrod-input" type="password" name="LoginPassword" />
   <br />
 
   <button> Log In </button>

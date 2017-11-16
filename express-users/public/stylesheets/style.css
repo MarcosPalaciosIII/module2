@@ -1,11 +1,23 @@
+/signup-page {
+  background-image: url("../images/tardis2.gif");
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: aquamarine;
+  background-image: url("../images/tardis1.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 700px;
+  background-position: bottom;
+  color: snow;
 }
 
 a {
   color: #00B7FF;
+  font-size: 18px;
+  padding: 0 3px;
 }
 
 img {

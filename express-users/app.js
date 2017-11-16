@@ -5,9 +5,15 @@ const logger       = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
+const session      = require("express-session");
+const passport     = require("passport");
+
 
 // run the code that sets up the Mongoose database connection
 require("./config/mongoose-setup");
+// run the code that sets up Passport
+require("./config/passport-setup");
+
 
 const app = express();
 
@@ -26,6 +32,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
+app.use(
+  session({
+    resave: true,
+    saveUninitialized: true,
+    secret: "this srting is to avoid errors"
+  })
+);
+// these Passport lines need to go AFTER the session setup
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // ROUTES --------------------------------------
