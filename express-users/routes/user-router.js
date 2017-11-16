@@ -12,9 +12,8 @@ router.get("/signup", (req, res, next) => {
 
 // STEP #2: process the sign up form
 router.post("/process-signup", (req, res, next) => {
-  if(req.body.signupPassword === "" ||
-     req.body.signupPassword.length < 16 ||
-     req.body.signupPassword.match[/[^a-z0-9]/i === null]             //                |
+  if(req.body.signupPassword.length < 16 ||
+     req.body.signupPassword.match(/[^a-z0-9]/i) === null             //                |
    ) { //               if no special characters
      res.locals.errorMessage = "Password is invalid";
      res.render("user-views/signup-page");
@@ -57,5 +56,17 @@ router.post("/process-signup", (req, res, next) => {
     next(err);
   });
 }); // POST / process-signup
+
+
+//STEP #1 show the log in form
+router.get("/login", (req, res, next) => {
+  res.render("user-views/login-page");
+});
+
+// STEP #2 process the log in form
+router.post("/process-login", (req,res, next) => {
+  
+});
+
 
 module.exports = router;
