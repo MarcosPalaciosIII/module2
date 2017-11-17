@@ -24,6 +24,8 @@ app.set('view engine', 'ejs');
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
+app.locals.bodyClass = 'homePage';
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -43,6 +45,16 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// define a custom middleware to define "currentUser" in all our views
+app.use((req, res, next) => {
+  // Passport defines "req.user" if the user is logged in
+  // ("req.user" is the result of deserialize)
+    res.locals.currentUser = req.user;
+
+    // call "next()" to tell Express that we've finished
+    // (otherwise your browser will hang)
+    next();
+});
 
 // ROUTES --------------------------------------
 const index = require('./routes/index');
@@ -50,6 +62,9 @@ app.use('/', index);
 
 const myUserRouter = require("./routes/user-router");
 app.use(myUserRouter);
+
+const myUserPreferences = require("./routes/preferences-router");
+app.use(myUserPreferences);
 // ----------------------------------------------
 
 

@@ -11,13 +11,19 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: [true, "What's your email??"],
+      // required: [true, "What's your email??"],
       match: [/.+@.+/, "Emails need an @ sign"]
     },
     encryptedPassword: {
       type: String,
-      required: [true, "We need a password!"]
-    }
+      // required: [true, "We need a password!"]
+    },
+
+    //facebook users
+    facebookID: { type: String },
+
+    //google users
+    googleID: { type: String }
   },
   // 2nd argument -> SETTING object
   {

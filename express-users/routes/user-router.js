@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 
 const UserModel = require("../models/user-model");
 
@@ -7,6 +8,14 @@ const router = express.Router();
 
 // STEP #1 show the sign up form
 router.get("/signup", (req, res, next) => {
+// redirect to home if you are already logged in
+  if(req.user){
+    res.redirect("/");
+    // early return to stop the function since there's an error
+    //(prevents the rest of the code form running
+    return;
+  }
+  res.locals.bodyClass = 'signUp';
   res.render("user-views/signup-page");
 });
 
@@ -70,6 +79,14 @@ router.post("/process-signup", (req, res, next) => {
 
 //STEP #1 show the log in form
 router.get("/login", (req, res, next) => {
+  // redirect to home if you are already logged in
+    if(req.user){
+      res.redirect("/");
+  // early return to stop the function since there's an error
+  //(prevents the rest of the code form running)
+      return;
+    }
+  res.locals.bodyClass = 'logIn';
   res.render("user-views/login-page");
 });
 
@@ -81,6 +98,7 @@ router.post("/process-login", (req,res, next) => {
     if (userFromDb === null) {
       // if we didn't find a user
       res.locals.errorMessage = "Email incorrect.";
+      res.locals.bodyClass = 'logIn';
       res.render("user-views/login-page");
 
       // early return to stop the function since there's an error
@@ -129,6 +147,44 @@ router.get("/logout", (req, res, next) => {
 
   res.redirect("/");
 });
+
+
+// Facebook login ROUTES
+//-------------------------------------------------
+
+// link to "facebook/login" to initiate the login proces
+router.get("/facebook/login", passport.authenticate("facebook"));
+//                        |
+//            this name comes from the strategy
+
+// Facebook will redirect here after login is successful
+router.get("/facebook/success", // no normal callback here
+ passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  })
+);
+
+
+// Google login ROUTES
+// ------------------------------------------------
+
+router.get("/google/login", // no normal callback here
+passport.authenticate("google", {
+  scope: [
+     "https://www.googleapis.com/auth/plus.login",
+        "https://www.googleapis.com/auth/plus.profile.emails.read"
+      ]
+  })
+);
+
+// Google will redirect here after login is successful
+router.get("/google/success",
+  passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  })
+);
 
 
 module.exports = router;

@@ -4,16 +4,22 @@ const images = [
   "../images/tardis3.gif"
 ];
 
-switch (location.pathname()) {
-    case "/":
-    $("body").attr("src", iamges[0]);
-    break;
-    case "/signup":
-    $("body").attr("src", iamges[1]);
-    break;
-    case "/login":
-    $("body").attr("src", iamges[2]);
-    break;
+
+
+var url = window.location.href.split('/');
+var divClass = '';
+switch(url) {
+    case 'http://localhost:3000/signup':
+    divClass ='signUp';
+      break;
+
+    case '/login':
+    divClass ='logIn';
+      break;
+
     default:
-    break;
+    divClass ='homepage';
+      break;
 }
+
+$("#layoutBody").addClass(divClass);

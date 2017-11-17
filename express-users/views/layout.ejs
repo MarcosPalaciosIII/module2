@@ -9,16 +9,29 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 
   </head>
-  <body>
+  <body id="layoutBody" class="<%= bodyClass %>">
 
     <header>
         <h1> Express Users </h1>
 
         <nav>
           <a href="/"> Home </a>
-          <a href="/signup"> Sign Up </a>
-          <a href="/login"> Log In </a>
-          <a href="/logout"> Log Out </a>
+
+          <% if (currentUser) { %>
+
+            <a href="/settings"> Edit Profile </a>
+            <a href="/logout"> Log Out </a>
+            <br />
+
+            <b> <%= currentUser.email %> </b>
+          <% } else { %>
+
+            <a href="/signup"> Sign Up </a>
+            <a href="/login"> Log In </a>
+
+          <% } %>
+
+
         </nav>
     </header>
 
