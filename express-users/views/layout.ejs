@@ -19,6 +19,8 @@
 
           <% if (currentUser) { %>
 
+            <a href="/my-rooms"> Your Rooms </a>
+            <a href="/rooms/new"> Create a Room </a>
             <a href="/settings"> Edit Profile </a>
             <a href="/logout"> Log Out </a>
             <br />
@@ -33,6 +35,16 @@
 
 
         </nav>
+
+      <% if (currentUser && currentUser.role === "admin") { %>
+
+        <h2> Admin Zone </h2>
+
+        <nav>
+          <a href="/admin/users"> All users </a>
+          <a href="/admin/rooms"> All Rooms </a>
+        </nav>
+      <% } %>
     </header>
 
     <%- body %>

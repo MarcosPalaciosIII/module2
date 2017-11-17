@@ -65,13 +65,21 @@ app.use(myUserRouter);
 
 const myUserPreferences = require("./routes/preferences-router");
 app.use(myUserPreferences);
+
+const myRoomRouter = require("./routes/room-router");
+app.use(myRoomRouter);
+
+const myAdminRouter = require("./routes/admin-router");
+app.use(myAdminRouter);
 // ----------------------------------------------
 
 
 // catch 404 and forward to error handler
+
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
+  res.locals.bodyClass = "error";
   next(err);
 });
 

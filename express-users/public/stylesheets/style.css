@@ -10,6 +10,22 @@
   background-image: url("../images/tardis3.gif");
 }
 
+.error {
+  background-image: url("../images/error404.gif");
+}
+
+.roomsCreate {
+  background-image: url("../images/tardis4.gif")
+}
+
+.roomsList {
+  background-image: url("../images/tardis5.gif")
+}
+
+.admin {
+  background-image: url("../images/tardisAdmin.gif")
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -30,7 +46,7 @@ a {
 
 img {
   width: 500px;
-  height: 500px;
+  height: 100%;
 }
 
 #form {

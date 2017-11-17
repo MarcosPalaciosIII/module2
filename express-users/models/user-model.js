@@ -23,7 +23,14 @@ const userSchema = new Schema(
     facebookID: { type: String },
 
     //google users
-    googleID: { type: String }
+    googleID: { type: String },
+
+    role: {
+      type: String,
+      // role can only be "normal" or "admin"
+      enum: ["normal", "admin"],
+      default: "normal"
+    }
   },
   // 2nd argument -> SETTING object
   {

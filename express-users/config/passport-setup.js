@@ -43,9 +43,9 @@ passport.use(
     {
       // Facebook credentials
       // App ID
-      clientID: "????",
+      clientID: "?????",
       // App Secret
-      clientSecret: "????",
+      clientSecret: "?????",
 
 
       // URL: where to go after log in is successful (one of our routes)
@@ -94,8 +94,8 @@ passport.use(
     // 1st arg of GoogleStrategy -> settings object
     {
       // Google credentials
-      clientID: "????",
-      clientSecret: "????",
+      clientID: "?????",
+      clientSecret: "?????",
 
       // Where to go after log in is successful (one of our routes)
       callbackURL: "/google/success",
