@@ -1,5 +1,6 @@
 const express = require("express");
 const RoomModel = require("../models/room-model");
+const myUploader = require("../config/multer-setup");
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get("/rooms/new", (req, res, next) => {
 });
 
 
-router.post("/rooms", (req, res, next) => {
+router.post("/rooms", myUploader.single, (req, res, next) => {
   // redirect to log in if there is no logged in user
   if (req.user === undefined) {
     res.redirect("/login");
@@ -30,6 +31,10 @@ router.post("/rooms", (req, res, next) => {
     owner: req.user._id
 
   });
+    if (req.file) {
+      theRoom.set({ photoUrl: `/uploads/${req.file.filename}`});
+    }
+
   theRoom.save()
   .then(() => {
     res.redirect("/my-rooms");

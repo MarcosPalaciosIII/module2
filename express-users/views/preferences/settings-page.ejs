@@ -8,10 +8,20 @@
   <small> (For "security reasons" we don't allow changing emails.)</small>
 </p>
 
+<p>
+  Your avatar:
+  <img class="avatar" src="<%= currentUser.avatar %>" />
+</p>
 
-<form id="form" action="" method="">
+<!-- for file upoads use "enctype: multipart/form-data" -->
+<form id="form" action="/settings" method="post" enctype="multipart/form-data">
   <label for="full-name-input"> Full Name </label>
   <input type="text" id="full-name-input" name="editFullName" value="<%= currentUser.fullName %>" placeholder="e.g. Khal Drogo" />
+<br />
+
+  <label for="avatar-input"> Change Your Avatar </label>
+  <input id="avatar-input" type="file" name="editAvatar" />
+<br />
 
   <button> Save Changes</button>
 </form>

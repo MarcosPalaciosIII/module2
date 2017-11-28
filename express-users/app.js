@@ -38,7 +38,7 @@ app.use(
   session({
     resave: true,
     saveUninitialized: true,
-    secret: "this srting is to avoid errors"
+    secret: "this string is to avoid errors"
   })
 );
 // these Passport lines need to go AFTER the session setup

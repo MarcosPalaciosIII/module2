@@ -18,6 +18,10 @@ const userSchema = new Schema(
       type: String,
       // required: [true, "We need a password!"]
     },
+    avatar: {
+      type: String,
+      default: "/images/default-avatar.gif",
+    },
 
     //facebook users
     facebookID: { type: String },
