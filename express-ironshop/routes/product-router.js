@@ -167,5 +167,64 @@ router.post("/products/:prodId/delete", (req, res, next) => {
 });
 
 
+// STEP #1: show edit form
+router.get("/products/:prodId/edit", (req, res, next) => {
+    // retrieve the document from the database
+    ProductModel.findById(req.params.prodId)
+      .then((productFromDb) => {
+          // create a local variable for the view to access the DB result
+          // (this is so we can pre-fill the form)
+          res.locals.productDetails = productFromDb;
+          res.render("product-views/product-edit");
+      })
+      .catch((err) => {
+          // render the error page with our error
+          next(err);
+      });
+});
+// STEP #2: receive edit submission
+router.post("/products/:prodId", (req, res, next) => {
+    // retrieve the document from the database
+    ProductModel.findById(req.params.prodId)
+      .then((productFromDb) => {
+          // update the document
+          productFromDb.set({
+              name:        req.body.productName,
+              price:       req.body.productPrice,
+              imageUrl:    req.body.productImage,
+              description: req.body.productDescription
+          }); // |                        |
+              // fields from         names of the
+              // model's schema      input tags
+          // set up the "productDetails" local variable in case
+          // we get validation errors and need to display the form again
+          res.locals.productDetails = productFromDb;
+          // and then save the updates
+          // (return the promise of the next database operation)
+          return productFromDb.save();
+      })
+      .then(() => {
+          // STEP #3: redirect after a SUCCESSFUL save
+          // redirect to the product details page
+          res.redirect(`/products/${req.params.prodId}`);
+            // you CAN'T redirect to an EJS file
+            // you can ONLY redirect to a URL
+      })
+      .catch((err) => {
+          // is this a validation error?
+          // if it is then display the form with the error messages
+          if (err.errors) {
+              res.locals.validationErrors = err.errors;
+              res.render("product-views/product-edit");
+          }
+          // if it isn't then render the error page with our error
+          else {
+              next(err);
+          }
+      });
+});
+
+
+
 
 module.exports = router;
